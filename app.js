@@ -5,6 +5,11 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import helmet from "helmet";
 
+import routes from "./routes/routes"
+import userRouter from "./routes/userRouter";;
+import globalRouter from "./routes/globalRouter";
+import videoRouter from "./routes/videoRouter";
+
 const app = express();
 
 app.use(helmet());
@@ -13,8 +18,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(logger('dev'));
 
-// app.get('/', function (req, res) {
-//     res.send("Hello Javascript");
-// })
+app.use(routes.home, globalRouter);
+app.use(routes.users, userRouter);
+app.use(routes.videos, videoRouter);
+
 
 export default app;
