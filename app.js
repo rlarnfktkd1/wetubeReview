@@ -9,14 +9,18 @@ import routes from "./routes/routes"
 import userRouter from "./routes/userRouter";;
 import globalRouter from "./routes/globalRouter";
 import videoRouter from "./routes/videoRouter";
+import { localsMiddlewares } from "./middlewares/index";
 
 const app = express();
+
+app.set("view engine", "pug");
 
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(logger('dev'));
+app.use(localsMiddlewares);
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
